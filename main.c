@@ -27,10 +27,9 @@
 #define MAX_SPRITE_CMD_SIZE 255
 
 #define AABB(x1, y1, x2, y2, w1, h1, w2, h2)                            \
-  {                                                                     \
-    (((x1 + w1 > x2) && (x1 < x2)) || ((x2 + w2 > x1) && (x2 < x1))) && \
-        (y1 + h1 > y2)                                                  \
-  }
+    ((((x1) + (w1) > (x2)) && ((x1) < (x2))) || (((x2) + (w2) > (x1)) && ((x2) < (x1)))) && \
+        ((y1) + (h1) > (y2))
+
 
 typedef struct {
   unsigned char op;
@@ -195,17 +194,14 @@ int main() {
     pack.cmd = &draw_dino_cmd;
     subcpu_call(&pack);
 
-    if (((*dino_x + DINO_CR_WIDTH > *cactus_1_x + CACTUS_CR_OFFSET_X && *dino_x < *cactus_1_x + CACTUS_CR_OFFSET_X) ||
-         (*cactus_1_x + CACTUS_CR_OFFSET_X + CACTUS_CR_WIDTH > *dino_x && *cactus_1_x + CACTUS_CR_OFFSET_X < *dino_x)) &&
-        (*dino_y + DINO_CR_HEIGHT > CACTUS_Y + CACTUS_CR_OFFSET_Y)) {
+    if (AABB(*dino_x, *dino_y, *cactus_1_x + CACTUS_CR_OFFSET_X, CACTUS_Y + CACTUS_CR_OFFSET_Y, DINO_CR_WIDTH, DINO_CR_HEIGHT, CACTUS_CR_WIDTH, 0)) {
       should_run = 0;
     }
 
-    if (((*dino_x + DINO_CR_WIDTH > *cactus_2_x + CACTUS_CR_OFFSET_X && *dino_x < *cactus_2_x + CACTUS_CR_OFFSET_X) ||
-     (*cactus_2_x + CACTUS_CR_OFFSET_X + CACTUS_CR_WIDTH > *dino_x && *cactus_2_x + CACTUS_CR_OFFSET_X < *dino_x)) &&
-      (*dino_y + DINO_CR_HEIGHT > CACTUS_Y + CACTUS_CR_OFFSET_Y)) {
+    if (AABB(*dino_x, *dino_y, *cactus_2_x + CACTUS_CR_OFFSET_X, CACTUS_Y + CACTUS_CR_OFFSET_Y, DINO_CR_WIDTH, DINO_CR_HEIGHT, CACTUS_CR_WIDTH, 0)) {
       should_run = 0;
     }
+
   }
 
   int a = 0;
