@@ -1,6 +1,5 @@
 #include <arch/px8.h>
 #include <graphics.h>
-#include <stdio.h>
 #include <string.h>
 
 #include "cactus_sprite.h"
@@ -30,6 +29,7 @@
     ((((x1) + (w1) > (x2)) && ((x1) < (x2))) || (((x2) + (w2) > (x1)) && ((x2) < (x1)))) && \
         ((y1) + (h1) > (y2))
 
+extern unsigned char px_getk() __z88dk_fastcall;
 
 typedef struct {
   unsigned char op;
@@ -141,7 +141,7 @@ int main() {
   c_x2 = 40;
 
   while (should_run) {
-    switch (getk()) {
+    switch (px_getk()) {
       case KEY_UP: {
         state = JUMPING;
         break;
@@ -205,6 +205,6 @@ int main() {
   }
 
   int a = 0;
-  scanf("%d\n", &a);
+  while(px_getk() == 0);
   return 0;
 }
