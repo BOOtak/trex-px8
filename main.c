@@ -5,6 +5,7 @@
 #include "cactus_sprite.h"
 #include "dino_sprites.h"
 
+#define SCREEN_BLOCK_WIDTH 60
 #define OP_DEFINE_SPRITE 0x20
 #define OP_DRAW_SPRITE 0x23
 
@@ -175,15 +176,15 @@ int main() {
 
     c_x1++;
     c_x2++;
-    *cactus_1_x = 80 - (c_x1 >> 1);
-    if (c_x1 > 159) {
+    *cactus_1_x = SCREEN_BLOCK_WIDTH - (c_x1 >> 1);
+    if (c_x1 > SCREEN_BLOCK_WIDTH * 2 - 1) {
       c_x1 = 0;
     }
     *cactus_1_index = (c_x1 & 1) + CACTUS_SPRITE_1_IDX;
     pack.cmd = &draw_cactus_cmd_1;
     subcpu_call(&pack);
-    *cactus_2_x = 80 - (c_x2 >> 1);
-    if (c_x2 > 159) {
+    *cactus_2_x = SCREEN_BLOCK_WIDTH - (c_x2 >> 1);
+    if (c_x2 > SCREEN_BLOCK_WIDTH * 2 - 1) {
       c_x2 = 0;
     }
 
