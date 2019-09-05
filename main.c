@@ -154,8 +154,8 @@ int main() {
 
     switch (state) {
       case RUNNING: {
-        anim_state ^= 1;
-        *dino_index = anim_state + FRAME_1_IDX;
+        anim_state = (anim_state + 1) & 0b11;
+        *dino_index = (anim_state >> 1) + FRAME_1_IDX;
         break;
       }
       case JUMPING: {
