@@ -6,10 +6,10 @@ SERIAL = /dev/ttyS0
 dino: DINO.ROM
 
 DINO.ROM: main.c dino_sprites.h cactus_sprite.h utils.lib
-	zcc +cpm -pragma-define:CRT_ENABLE_STDIO=0 -lutils -subtype=px8 -create-app -odino main.c
+	zcc +cpm -lutils -subtype=px8 -create-app -odino main.c
 
 dino.com: main.c dino_sprites.h cactus_sprite.h utils.lib
-	zcc +cpm -pragma-define:CRT_ENABLE_STDIO=0 -lutils -subtype=px8 -odino.com main.c
+	zcc +cpm -lutils -subtype=px8 -odino.com main.c
 
 utils.lib: utils.asm
 	z80asm -xutils.lib utils.asm
