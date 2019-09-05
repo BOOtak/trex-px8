@@ -17,7 +17,7 @@
 #define DINO_STANDING 5
 
 #define DINO_X 2
-#define DINO_Y 41
+#define DINO_Y 39
 
 #define CACTUS_Y 40
 
