@@ -24,4 +24,14 @@ deploy: dino.com
 	$(VFMAN_DIR)/vfwrite dino.d88 dino.com
 	$(VFLOPPY_DIR)/epspdv3 -s $(SERIAL) -0 dino.d88
 
-ALL: dino
+trexpx4: trexpx4.com trexpx4.d88
+
+trexpx4.com: trex_px4.asm
+	z80asm.exe -b -s -l -m -g -reloc-info -otrexpx4.com trex_px4.asm
+
+trexpx4.d88: trexpx4.com
+	rm -f trexpx4.d88
+	$(VFMAN_DIR)/vformat.exe trexpx4.d88
+	$(VFMAN_DIR)/vfwrite.exe trexpx4.d88 trexpx4.com
+
+ALL: dino trexpx4
